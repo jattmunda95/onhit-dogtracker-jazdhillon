@@ -29,7 +29,6 @@ The Dog Tracker Application is a centralized system designed to help dog owners 
 
 - **User Interface:**
   - Simple and intuitive command-line interface (CLI).
-  - Secure user authentication to protect data.
 
 ## Getting Started
 Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
