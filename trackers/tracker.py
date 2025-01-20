@@ -17,7 +17,7 @@ class Tracker:
         self.vet_tracker_list = []
         self.food_tracker_list = []
 
-    def addExerciseTracker(self):
+    def add_to_exercise_tracker(self):
         while True:
             type_input = input("Enter exercise type: ")
             if not type_input:
@@ -41,7 +41,7 @@ class Tracker:
 
     import re
 
-    def addVetTracker(self):
+    def add_to_vet_tracker(self):
         while True:
             visit_date_input = input("Enter visit date (YYYY-MM-DD): ")
             if not re.match(r'\d{4}-\d{2}-\d{2}', visit_date_input):
@@ -63,7 +63,7 @@ class Tracker:
         new_vet_visit = VetVisit(visit_date_input, reason_input, vet_name_input)
         self.vet_tracker_list.append(new_vet_visit)
 
-        def addFoodTracker(self):
+        def add_to_food_list(self):
             while True:
                 food_type_input = input("Enter food type: ")
                 if not food_type_input:
@@ -114,6 +114,16 @@ class Tracker:
 # tracker = DogTracker()
 # Call the function to print all lists
 # tracker.print_all_trackers()
+
+
+    @classmethod
+    def from_dict(cls, data):
+        tracker = cls()
+        tracker.exercise_tracker_list = [ExerciseActivity.from_dict(item) for item in data["exercise_tracker_list"]]
+        tracker.vet_tracker_list = [VetVisit.from_dict(item) for item in data["vet_tracker_list"]]
+        tracker.food_tracker_list = [FoodEntry.from_dict(item) for item in data["food_tracker_list"]]
+        return tracker
+
     def to_dict(self):
         """Convert class attributes to a dictionary."""
         return {
@@ -121,8 +131,6 @@ class Tracker:
             "vet_tracker_list": [vet_visit.to_dict() for vet_visit in self.vet_tracker_list],
             "food_tracker_list": [food_entry.to_dict() for food_entry in self.food_tracker_list]
         }
-
-
 
     def to_json(self):
         """Convert class attributes to JSON."""

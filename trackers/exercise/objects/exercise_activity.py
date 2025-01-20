@@ -10,6 +10,10 @@ class ExerciseActivity:
     def __str__(self):
         return f"{self.type} - {self.duration} - {self.intensity_level}"
 
+    @classmethod
+    def from_dict(cls, data):
+        return cls(data["type"], data["duration"], data["intensity_level"])
+
     def to_dict(self):
         """Convert class attributes to a dictionary."""
         return {

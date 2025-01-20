@@ -1,32 +1,141 @@
 import sys
 import os
 import json
+import time
 
 from dog import Dog
 from trackers.food.objects.food_entry import FoodEntry
-from trackers.exercise.objects.exercise_activity import ExerciseActivity
 from trackers.vet.objects.vet_visits import VetVisit
+from trackers.exercise.objects.exercise_activity import ExerciseActivity
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 dog_dict = {}
 
-def dog_exist(dog_name: str):
-    try:
-        value = dog_dict[dog_name]
-        return True
-    except KeyError:
-        print("=" * 10 + "ERROR" + "=" * 10)
-        print(f"There are no dogs in the list.\nPlease add a dog first")
-        return False
+def dog_exist(dog_name: str) -> bool:
+    """Check if a dog exists in the dog_dict."""
+    dog_name = dog_name.lower()
+    for name, dog in dog_dict.items():
+        print("name: {}, dog: {}".format(name, dog))
+
+    return dog_name in dog_dict
+
+def add_dog() -> None:
+    while True:
+        dog_name = input("Please enter dog name to make new entry: ").lower()
+        if dog_name not in dog_dict and dog_name.isalpha():
+            dog_size = input("Enter your dog's size: ").lower()
+            dog_gender = input("Enter your dog's gender [M/F]: ").lower()
+            new_dog = Dog(dog_name, dog_size, dog_gender)
+            dog_dict[dog_name] = new_dog
+            print(dog_dict)
+            break
+        else:
+            print("=" * 10 + "ERROR" + "=" * 10)
+            print(f"Dog name {dog_name} already exists or is invalid. Please try again.")
+            print("\n" * 2)
+            continue
+
+def get_valid_number(prompt: str, min_value: int = None, max_value: int = None) -> int:
+    """Prompt the user for a valid number within an optional range."""
+    while True:
+        try:
+            value = int(input(prompt))
+            if min_value is not None and value < min_value:
+                print(f"Value must be at least {min_value}. Please try again.")
+                continue
+            if max_value is not None and value > max_value:
+                print(f"Value must be at most {max_value}. Please try again.")
+                continue
+            return value
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+def exercise_entry_menu() -> None:
+    while True:
+        dog_name = input("Which dog to add entry for:\n").lower()
+        print(f"Which exercise activity do you wish to use? >{dog_name}<")
+
+        if dog_exist(dog_name):
+            dog = dog_dict.get(dog_name)
+            input_type = input("Which type of exercise?\n").lower()
+            input_intensity = get_valid_number("What was the intensity of exercise [1 to 10]?\n", 1, 10)
+            input_duration = get_valid_number("What was the duration of exercise?\n", 1)
+            new_exercise_obj = ExerciseActivity(input_type, input_duration, input_intensity)
+            dog.tracker.exercise_tracker_list.append(new_exercise_obj)
+            break
+        else:
+            print("Dog does not exist, TRY AGAIN")
+            input("Press Enter to continue...")
+
+def vet_entry_menu() -> None:
+    while True:
+        dog_name = input("For which dog do you want to add a vet entry for:\n").lower()
+        if dog_exist(dog_name):
+            input_visit_date = input("What was the date of visit?\n").lower()
+            input_reason = input("What was the reason of visit?\n").lower()
+            input_outcome = input("What was the outcome of visit?\n").lower()
+            input_vet_name = input("What was the name of vet?\n").lower()
+            dog = dog_dict.get(dog_name)
+            new_vet_obj = VetVisit(input_visit_date, input_reason, input_outcome, input_vet_name)
+            dog.tracker.vet_tracker_list.append(new_vet_obj)
+            break
+        else:
+            print("Dog does not exist, TRY AGAIN")
+            input("Press Enter to continue...")
+
+def food_entry_menu() -> None:
+    while True:
+        dog_name = input("For which dog do you want to add a food entry for:\n").lower()
+        if dog_exist(dog_name):
+            food_type = input("Which type of food?\n").lower()
+            food_quantity = get_valid_number("How much food did you feed in grams?\n", 1)
+            feeding_time = input("What was the time of feeding?\nMorning [m]\nAfternoon [a]\nEvening [e]\n").lower()
+            dog = dog_dict.get(dog_name)
+            new_food_obj = FoodEntry(food_type, food_quantity, feeding_time)
+            dog.tracker.food_tracker_list.append(new_food_obj)
+            break
+        else:
+            print("Dog does not exist, TRY AGAIN")
+            input("Press Enter to continue...")
+
+def save_to_json_file():
+    # Initialize dictionary for JSON conversion
+    dog_dict_json = {}
+    # Convert each Dog object to a dictionary and add to dog_dict_json
+    for name, dog in dog_dict.items():
+        dog_dict_json[name] = dog.to_dict()
+    # Print the converted dictionary
+    print(dog_dict_json)
+    # Save the dictionary to a JSON file
+    with open('dog_tracker_data.json', 'w') as json_file:
+        json.dump(dog_dict_json, json_file, indent=4)
+    print("Information saved successfully.")
+
+def load_dog_data_from_json(file_path):
+    with open(file_path, 'r') as json_file:
+        data = json.load(json_file)
+    dog_data_holder = {}
+    for name, dog_data in data.items():
+        dog_data_holder[name] = Dog.from_dict(dog_data)
+
+    return dog_data_holder
 
 def main():
+    # Load JSON data to memory on initalization
+    global dog_dict
+
+    file_path = 'dog_tracker_data.json'  # Path to your JSON file
+    dog_dict = load_dog_data_from_json(file_path).copy()
+
+    for name, dog in dog_dict.items():
+        print("name: {}, dog: {}".format(name.lower(), dog))
+
     while True:
-        # welcome dialog
+        # Welcome dialog
         print(f"Welcome to the KAI9 App :-)")
 
-
-        # if user has at least one dog listed then they are not prompted to enter new dog instance
+        # Menu options
         action_choice = input(f"What would you like to look at?\n"
                               "=> Food Menu [f]\n"
                               "=> Vet Information [v]\n"
@@ -34,93 +143,30 @@ def main():
                               "=> Add Your Dogs [d]\n"
                               "=> Print Tracker Log [s]\n"
                               "=> Save Info [x]\n"
-                              "=> Quit [q]\n")
+                              "=> Quit [q]\n").lower()
 
         if action_choice == "d":
-            dog_name = input("Enter your dog's name [Only letters]: ")
-            dog_breed = input("Enter your dog's breed: ")
-            dog_gender = input("Enter your dog's gender [M/F]: ")
-            new_dog = Dog(dog_name, dog_breed, dog_gender)
-            if dog_name not in dog_dict:
-                dog_dict[dog_name] = new_dog
-                print("the size of the dictionary is: ", len(dog_dict))
-
-            else:
-                print("=" * 10 + "ERROR" + "=" * 10)
-                print(f"Dog {dog_name} already exists")
-                continue
+            add_dog()
 
         elif action_choice == "f":
-            while True:
-                dog_name = input("For which dog do you want to add a food entry for:\n")
-
-                if dog_exist(dog_name):
-                    food_type = input(f"Which type of food?\n")
-                    food_quantity = input(f"How much food did you feed in grams?\n")
-                    feeding_time = input(f"What was the time of feeding?\n"
-                                         f"Morning [m]\n"
-                                         f"Afternoon [a]\n"
-                                         f"Evening [e]\n")
-                    dog = dog_dict.get(dog_name)
-                    new_food_obj = FoodEntry(food_type, food_quantity, feeding_time)
-                    dog.tracker.food_tracker_list.append(new_food_obj)
-                    break
-                else:
-                    print("Dog does not exist, TRY AGAIN")
-                    input("Press Enter to continue...")
+            food_entry_menu()
 
         elif action_choice == "v":
-            while True:
-                dog_name = input("For which dog do you want to add a food entry for:\n")
-                if dog_exist(dog_name):
-                    input_visit_date = input(f"What was the date of visit?\n")
-                    input_reason = input(f"What was the reason of visit?\n")
-                    input_outcome = input(f"What was the outcome of visit?\n")
-                    input_vet_name = input(f"What was the name of vet?\n")
-                    dog = dog_dict.get(dog_name)
-                    new_vet_obj = VetVisit(input_visit_date, input_reason, input_outcome, input_vet_name)
-                    dog.tracker.vet_tracker_list.append(new_vet_obj)
-                    break
-                else:
-                    print("Dog does not exist, TRY AGAIN")
-                    input("Press Enter to continue...")
+            vet_entry_menu()
 
         elif action_choice == "e":
-            while True:
-                dog_name = input("For which dog do you want to add a exercise entry for:\n")
-                if not dog_exist(dog_name):
-                    input_type = input(f"Which type of exercise?\n")
-                    input_intensity = int(input(f"What was the intensity of exercise [1 to 10]?\n"))
-                    input_duration = int(input(f"What was the duration of exercise?\n"))
-                    dog = dog_dict.get(dog_name)
-                    new_exercise_obj = ExerciseActivity(input_type, input_duration, input_intensity)
-                    dog.tracker.vet_tracker_list.append(new_exercise_obj)
-                    break
-                else:
-                    print("Dog does not exist, TRY AGAIN")
-                    input("Press Enter to continue...")
-
+            exercise_entry_menu()
 
         elif action_choice == "s":
             for dog_name, dog_obj in dog_dict.items():
-                dog_obj.dog_details(dog_name)
+                dog_obj.dog_details()
+
+        elif action_choice == "x":
+            save_to_json_file()
 
         elif action_choice == "q":
             break
 
-        # Convert dictionary to JSON
-        print("before looping")
-        dog_dict_json = {name: dog.to_dict() for name, dog in dog_dict.items()}
-        print("after looping")
-        json_data = json.dumps(dog_dict_json, indent=4)
-        # Print JSON string
-        print(json_data)
-
-def is_name_unique(dog_list, name):
-    names = [dog.name for dog in dog_list]
-    return names.count(name) == 1
-
-
-# main loop execution on file run
+# Main loop execution on file run
 if __name__ == "__main__":
     main()

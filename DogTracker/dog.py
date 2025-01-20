@@ -42,6 +42,12 @@ class Dog:
 
         self.tracker.print_all_trackers(self.name)
 
+    @classmethod
+    def from_dict(cls, data):
+        dog = cls(data["name"], data["breed"], data["gender"])
+        dog.tracker = Tracker.from_dict(data["tracker"])
+        return dog
+
     def to_dict(self):
         """Convert class attributes to a dictionary."""
         return {

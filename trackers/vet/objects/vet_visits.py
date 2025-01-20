@@ -1,3 +1,4 @@
+import json
 
 class VetVisit:
     def __init__(self, visit_date, reason, outcome, vet_name):
@@ -8,6 +9,10 @@ class VetVisit:
 
     def __str__(self):
         return f"VetVisit {self.visit_date} {self.reason} {self.outcome} {self.vet_name}"
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(data["visit_date"], data["reason"], data["outcome"], data["vet_name"])
 
     def to_dict(self):
         """Convert class attributes to a dictionary."""

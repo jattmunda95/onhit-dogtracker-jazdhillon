@@ -1,0 +1,281 @@
+{
+    "Simba": {
+        "name": "Simba",
+        "breed": "Med",
+        "gender": "M",
+        "tracker": {
+            "exercise_tracker_list": [
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                }
+            ],
+            "vet_tracker_list": [
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                }
+            ],
+            "food_tracker_list": [
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                }
+            ]
+        }
+    },
+    "Tommy": {
+        "name": "Tommy",
+        "breed": "Large",
+        "gender": "M",
+        "tracker": {
+            "exercise_tracker_list": [
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                }
+            ],
+            "vet_tracker_list": [
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                }
+            ],
+            "food_tracker_list": [
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                }
+            ]
+        }
+    },
+    "Bella": {
+        "name": "Bella",
+        "breed": "Small",
+        "gender": "F",
+        "tracker": {
+            "exercise_tracker_list": [
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                },
+                {
+                    "type": "Walk",
+                    "duration": 10,
+                    "intensity_level": 5
+                }
+            ],
+            "vet_tracker_list": [
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                },
+                {
+                    "visit_date": "12/12/2000",
+                    "reason": "Fever",
+                    "outcome": "Medicines",
+                    "vet_name": "Avenue Vet"
+                }
+            ],
+            "food_tracker_list": [
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                },
+                {
+                    "food_type": "Meat",
+                    "quantity": 100,
+                    "feeding_time": "e"
+                }
+            ]
+        }
+    }
+}
