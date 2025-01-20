@@ -1,7 +1,7 @@
 {
     "simba": {
         "name": "simba",
-        "breed": "med",
+        "size": "med",
         "gender": "m",
         "tracker": {
             "exercise_tracker_list": [
@@ -34,6 +34,11 @@
                     "type": "running",
                     "duration": 20,
                     "intensity_level": 1
+                },
+                {
+                    "type": "running",
+                    "duration": 26,
+                    "intensity_level": 9
                 }
             ],
             "vet_tracker_list": [
@@ -99,7 +104,7 @@
     },
     "tommy": {
         "name": "tommy",
-        "breed": "large",
+        "size": "large",
         "gender": "m",
         "tracker": {
             "exercise_tracker_list": [
@@ -192,7 +197,7 @@
     },
     "bella": {
         "name": "bella",
-        "breed": "small",
+        "size": "small",
         "gender": "f",
         "tracker": {
             "exercise_tracker_list": [
@@ -278,6 +283,28 @@
                 {
                     "food_type": "meat",
                     "quantity": 100,
+                    "feeding_time": "e"
+                }
+            ]
+        }
+    },
+    "super": {
+        "name": "super",
+        "size": "medium",
+        "gender": "m",
+        "tracker": {
+            "exercise_tracker_list": [
+                {
+                    "type": "walking",
+                    "duration": 60,
+                    "intensity_level": 5
+                }
+            ],
+            "vet_tracker_list": [],
+            "food_tracker_list": [
+                {
+                    "food_type": "kibble",
+                    "quantity": 260,
                     "feeding_time": "e"
                 }
             ]

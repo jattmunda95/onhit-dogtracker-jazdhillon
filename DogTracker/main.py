@@ -12,29 +12,36 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 dog_dict = {}
 
+
 def dog_exist(dog_name: str) -> bool:
     """Check if a dog exists in the dog_dict."""
     dog_name = dog_name.lower()
-    for name, dog in dog_dict.items():
-        print("name: {}, dog: {}".format(name, dog))
-
     return dog_name in dog_dict
 
+
 def add_dog() -> None:
+    """
+    a static method to add a dog object to the dictionary of dogs
+    :return: None
+    """
     while True:
         dog_name = input("Please enter dog name to make new entry: ").lower()
         if dog_name not in dog_dict and dog_name.isalpha():
-            dog_size = input("Enter your dog's size: ").lower()
-            dog_gender = input("Enter your dog's gender [M/F]: ").lower()
+            dog_size = input("Enter your dog's size?\n"
+                             "small | medium | large\n").lower()
+            dog_gender = input("Enter your dog's gender [m/f]: ").lower()
             new_dog = Dog(dog_name, dog_size, dog_gender)
             dog_dict[dog_name] = new_dog
-            print(dog_dict)
+            print(f"Dog Dict looks like this now:\n")
+            for dog_name, dog in dog_dict.items():
+                print(f"\t{dog_name}: {dog}")
             break
         else:
             print("=" * 10 + "ERROR" + "=" * 10)
             print(f"Dog name {dog_name} already exists or is invalid. Please try again.")
             print("\n" * 2)
             continue
+
 
 def get_valid_number(prompt: str, min_value: int = None, max_value: int = None) -> int:
     """Prompt the user for a valid number within an optional range."""
@@ -50,6 +57,7 @@ def get_valid_number(prompt: str, min_value: int = None, max_value: int = None) 
             return value
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+
 
 def exercise_entry_menu() -> None:
     while True:
@@ -68,6 +76,7 @@ def exercise_entry_menu() -> None:
             print("Dog does not exist, TRY AGAIN")
             input("Press Enter to continue...")
 
+
 def vet_entry_menu() -> None:
     while True:
         dog_name = input("For which dog do you want to add a vet entry for:\n").lower()
@@ -84,6 +93,7 @@ def vet_entry_menu() -> None:
             print("Dog does not exist, TRY AGAIN")
             input("Press Enter to continue...")
 
+
 def food_entry_menu() -> None:
     while True:
         dog_name = input("For which dog do you want to add a food entry for:\n").lower()
@@ -99,32 +109,48 @@ def food_entry_menu() -> None:
             print("Dog does not exist, TRY AGAIN")
             input("Press Enter to continue...")
 
+
 def save_to_json_file():
+    """Save dog data to a JSON file and measure the time it takes."""
+    start_time = time.time()  # Start the timer
+
     # Initialize dictionary for JSON conversion
     dog_dict_json = {}
     # Convert each Dog object to a dictionary and add to dog_dict_json
     for name, dog in dog_dict.items():
         dog_dict_json[name] = dog.to_dict()
-    # Print the converted dictionary
-    print(dog_dict_json)
+
     # Save the dictionary to a JSON file
     with open('dog_tracker_data.json', 'w') as json_file:
         json.dump(dog_dict_json, json_file, indent=4)
-    print("Information saved successfully.")
+
+    # Measure the elapsed time for saving
+    elapsed_time = time.time() - start_time
+    print(f"Information saved successfully. Time taken to save: {elapsed_time:.4f} seconds.")
+
 
 def load_dog_data_from_json(file_path):
+    """Load dog data from a JSON file and measure the time it takes."""
+    start_time = time.time()  # Start the timer
+
     with open(file_path, 'r') as json_file:
         data = json.load(json_file)
+
     dog_data_holder = {}
     for name, dog_data in data.items():
         dog_data_holder[name] = Dog.from_dict(dog_data)
 
+    # Measure the elapsed time for loading
+    elapsed_time = time.time() - start_time
+    print(f"Time taken to load dog data: {elapsed_time:.4f} seconds.")
+
     return dog_data_holder
 
+
 def main():
-    # Load JSON data to memory on initalization
     global dog_dict
 
+    # load JSON data to memory on initialization
     file_path = 'dog_tracker_data.json'  # Path to your JSON file
     dog_dict = load_dog_data_from_json(file_path).copy()
 
@@ -166,6 +192,7 @@ def main():
 
         elif action_choice == "q":
             break
+
 
 # Main loop execution on file run
 if __name__ == "__main__":
